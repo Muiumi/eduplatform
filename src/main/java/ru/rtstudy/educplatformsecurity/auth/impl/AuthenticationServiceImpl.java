@@ -12,7 +12,7 @@ import ru.rtstudy.educplatformsecurity.dto.mapper.impl.UserMapper;
 import ru.rtstudy.educplatformsecurity.dto.request.JwtRefreshToken;
 import ru.rtstudy.educplatformsecurity.dto.request.SignInRequest;
 import ru.rtstudy.educplatformsecurity.dto.request.SignUpRequest;
-import ru.rtstudy.educplatformsecurity.dto.response.JwtTokenResponse;
+import ru.rtstudy.educplatformsecurity.dto.response.JwtTokenDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 import ru.rtstudy.educplatformsecurity.exception.entity.UserNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.user.UserAlreadyExistsException;
@@ -57,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public JwtTokenResponse signIn(SignInRequest request) {
+    public JwtTokenDto signIn(SignInRequest request) {
         log.info("{} trying to sign in", request.getEmail());
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()))
@@ -69,7 +69,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 });
         String jwt = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return JwtTokenResponse.builder()
+        return JwtTokenDto.builder()
+                .user(user)
                 .token(jwt)
                 .refreshToken(refreshToken)
                 .build();
@@ -95,7 +96,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public JwtTokenResponse refreshToken(JwtRefreshToken jwtRefreshToken) {
+    public JwtTokenDto refreshToken(JwtRefreshToken jwtRefreshToken) {
         log.info("WE ARE HERE!");
         String userEmail = jwtService.extractUser(jwtRefreshToken.refreshToken());
         if (userEmail != null) {
@@ -103,7 +104,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .orElseThrow(() -> new UserNotFoundException("User was not found"));
             if (jwtService.isTokenValid(jwtRefreshToken.refreshToken(), user)) {
                 String accessToken = jwtService.generateToken(user);
-               return JwtTokenResponse.builder()
+               return JwtTokenDto.builder()
                        .token(accessToken)
                        .build();
             }

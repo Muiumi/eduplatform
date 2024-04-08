@@ -3,12 +3,14 @@ package ru.rtstudy.educplatformsecurity.dto.response;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
-import lombok.Data;
+import ru.rtstudy.educplatformsecurity.model.User;
 
-@Data
+
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class JwtTokenResponse {
-    private String token;
-    private String refreshToken;
+public record JwtTokenDto(
+        User user,
+        String token,
+        String refreshToken)
+{
 }
