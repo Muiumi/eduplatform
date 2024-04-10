@@ -31,18 +31,10 @@ public class AuthenticationResponseBuilder {
     }
 
     public ResponseEntity<SuccessfulSignInDto> signIn(SignInRequest signInRequest) {
-        JwtTokenDto tokenDto = authenticationService.signIn(signInRequest);
-        SuccessfulSignInDto response = SuccessfulSignInDto.builder()
-                .email(tokenDto.user().getEmail())
-                .firstName(tokenDto.user().getFirstName())
-                .surname(tokenDto.user().getLastName())
-                .role(tokenDto.user().getRole())
-                .refreshToken(tokenDto.refreshToken())
-                .build();
+        SuccessfulSignInDto tokenDto = authenticationService.signIn(signInRequest);
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
-                .header("Authorization", "Bearer " + tokenDto.token())
-                .body(response);
+                .body(tokenDto);
     }
 
     public Boolean verificationAuthorRequest() {

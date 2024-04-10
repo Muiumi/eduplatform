@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rtstudy.educplatformsecurity.dto.response.CategoryDto;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.responsebuilder.CategoryResponseBuilder;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class CategoryController {
 
     @Operation(summary = "Получить список всех курсов по идентификатору категории")
     @GetMapping("/{id}")
-    public ResponseEntity<List<CourseShortDescriptionDto>> getCoursesByCategoryId(@PathVariable(name = "id")
+    public ResponseEntity<List<CourseLongDescriptionDto>> getCoursesByCategoryId(@PathVariable(name = "id")
                                                                                   @Parameter(name = "id", description = "Идентификатор категории") Long id) {
         return responseBuilder.getCourseByCategory(id);
     }

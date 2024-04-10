@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
 import ru.rtstudy.educplatformsecurity.model.constant.Role;
 
+import java.util.Date;
+
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Builder
 public record SuccessfulSignInDto(
@@ -12,6 +14,9 @@ public record SuccessfulSignInDto(
         String firstName,
         String surname,
         String refreshToken,
+        Date refreshExpiration,
+        String accessToken,
+        Date accessExpiration,
         Role role
 ) {
 }

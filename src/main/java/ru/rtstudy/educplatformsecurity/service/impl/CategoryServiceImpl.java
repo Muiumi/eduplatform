@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rtstudy.educplatformsecurity.dto.response.CategoryDto;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.exception.entity.CategoryNotExistsException;
 import ru.rtstudy.educplatformsecurity.exception.entity.CourseNotFoundException;
 import ru.rtstudy.educplatformsecurity.model.Category;
@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public List<CourseShortDescriptionDto> getCoursesByCategory(Long categoryId) {
+    public List<CourseLongDescriptionDto> getCoursesByCategory(Long categoryId) {
         log.info("{} trying to get course by category", util.findUserFromContext().getEmail());
         categoryRepository.findById(categoryId)
                 .orElseThrow(() -> {

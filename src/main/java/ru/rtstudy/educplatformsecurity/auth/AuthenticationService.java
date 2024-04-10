@@ -4,13 +4,14 @@ import ru.rtstudy.educplatformsecurity.dto.request.JwtRefreshToken;
 import ru.rtstudy.educplatformsecurity.dto.request.SignInRequest;
 import ru.rtstudy.educplatformsecurity.dto.request.SignUpRequest;
 import ru.rtstudy.educplatformsecurity.dto.response.JwtTokenDto;
+import ru.rtstudy.educplatformsecurity.dto.response.SuccessfulSignInDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 
 public interface AuthenticationService {
 
     UserDtoResponse signUp(SignUpRequest request);
 
-    JwtTokenDto signIn(SignInRequest request);
+    SuccessfulSignInDto signIn(SignInRequest request);
 
     boolean hasCredentialToDelete(String fileName);
 

@@ -13,6 +13,7 @@ import ru.rtstudy.educplatformsecurity.dto.request.JwtRefreshToken;
 import ru.rtstudy.educplatformsecurity.dto.request.SignInRequest;
 import ru.rtstudy.educplatformsecurity.dto.request.SignUpRequest;
 import ru.rtstudy.educplatformsecurity.dto.response.JwtTokenDto;
+import ru.rtstudy.educplatformsecurity.dto.response.SuccessfulSignInDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 import ru.rtstudy.educplatformsecurity.exception.entity.UserNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.user.UserAlreadyExistsException;
@@ -57,7 +58,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public JwtTokenDto signIn(SignInRequest request) {
+    public SuccessfulSignInDto signIn(SignInRequest request) {
         log.info("{} trying to sign in", request.getEmail());
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()))
@@ -69,10 +70,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 });
         String jwt = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return JwtTokenDto.builder()
-                .user(user)
-                .token(jwt)
+        return SuccessfulSignInDto.builder()
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .surname(user.getLastName())
+                .role(user.getRole())
+                .accessToken(jwt)
+                .accessExpiration(jwtService.extractExpiration(jwt))
                 .refreshToken(refreshToken)
+                .refreshExpiration(jwtService.extractExpiration(refreshToken))
                 .build();
     }
 

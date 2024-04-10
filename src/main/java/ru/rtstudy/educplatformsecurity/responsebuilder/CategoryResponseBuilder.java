@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.rtstudy.educplatformsecurity.dto.response.CategoryDto;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.service.CategoryService;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class CategoryResponseBuilder {
                 .body(categoryService.getAllCategories());
     }
 
-    public ResponseEntity<List<CourseShortDescriptionDto>> getCourseByCategory(Long id) {
+    public ResponseEntity<List<CourseLongDescriptionDto>> getCourseByCategory(Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(categoryService.getCoursesByCategory(id));
