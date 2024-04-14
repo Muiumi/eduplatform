@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
-import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoShortDescription;
+import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoResponse;
 import ru.rtstudy.educplatformsecurity.exception.author.NotCourseAuthorException;
 import ru.rtstudy.educplatformsecurity.exception.entity.CourseNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.entity.DifficultNotExistsException;
-import ru.rtstudy.educplatformsecurity.model.*;
+import ru.rtstudy.educplatformsecurity.model.Category;
+import ru.rtstudy.educplatformsecurity.model.Course;
+import ru.rtstudy.educplatformsecurity.model.Difficult;
+import ru.rtstudy.educplatformsecurity.model.User;
 import ru.rtstudy.educplatformsecurity.repository.CourseRepository;
 import ru.rtstudy.educplatformsecurity.service.CategoryService;
 import ru.rtstudy.educplatformsecurity.service.CourseService;
@@ -19,7 +22,6 @@ import ru.rtstudy.educplatformsecurity.service.DifficultService;
 import ru.rtstudy.educplatformsecurity.service.UserCourseService;
 import ru.rtstudy.educplatformsecurity.util.Util;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -143,7 +145,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<LessonDtoShortDescription> getAllLessonByCourseId(Long courseId) {
+    public List<LessonDtoResponse> getAllLessonByCourseId(Long courseId) {
         log.info("{} trying to get lesson by course_id: {}", util.findUserFromContext().getEmail(), courseId);
         return courseRepository.getAllLessonByCourseId(courseId)
                 .orElseThrow(() -> {

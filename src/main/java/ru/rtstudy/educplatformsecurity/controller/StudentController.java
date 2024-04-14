@@ -43,6 +43,7 @@ public class StudentController {
         return responseBuilder.sendAnswer(studentAnswerDto);
     }
 
+
     @Operation(summary = "Получить все оценки и все свои ответы с комментариями преподавателя на сданные задания")
     @GetMapping
     public ResponseEntity<List<AllStudentAnswers>> receiveAllStudentsAnswer() {
@@ -57,12 +58,20 @@ public class StudentController {
 
     }
 
+    @Operation(summary = "Получить все свои попытки ответов на задание указанного урока")
+    @GetMapping("lesson/{lesson_id}")
+    public ResponseEntity<List<AllStudentAnswers>> receiveAllStudentsAnswersForLesson(@PathVariable(name = "lesson_id")
+                                                                                      @Parameter(name = "lesson_id", description = "Идентификатор урока, к которому надо изменить ответ")
+                                                                                      Long lessonId) {
+        return responseBuilder.findAllStudentAnswersForLesson(lessonId);
+    }
+
     @Operation(summary = "Изменить свой ответ к уроку, только если он не был проверен ментором")
-    @PutMapping("lesson/{id}")
-    public ResponseEntity<ChangeStudentAnswerDto> changeAnswer(@PathVariable(name = "id")
-                                                               @Parameter(name = "id", description = "Идентификатор урока, к которому надо изменить ответ") Long id,
+    @PutMapping("lesson/{grade_id}")
+    public ResponseEntity<ChangeStudentAnswerDto> changeAnswer(@PathVariable(name = "grade_id")
+                                                               @Parameter(name = "grade_id", description = "Идентификатор урока, к которому надо изменить ответ") Long gradeId,
                                                                @Valid @RequestBody ChangeStudentAnswerDto studentsAnswerDto) {
-        return responseBuilder.changeAnswer(id, studentsAnswerDto);
+        return responseBuilder.changeAnswer(gradeId, studentsAnswerDto);
     }
 
     @Operation(summary = "Запрос на получение прав ментора на курс, получить возможность проверять ответы пользователей (при наличии среднего балла 8.0 за задания курса)")

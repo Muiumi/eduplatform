@@ -1,10 +1,7 @@
 package ru.rtstudy.educplatformsecurity.dto.response;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Schema(description = "Grade For Student DTO")
 public record AllStudentAnswers(
         @Schema(description = "Идентификатор выполненного задания", example = "1")

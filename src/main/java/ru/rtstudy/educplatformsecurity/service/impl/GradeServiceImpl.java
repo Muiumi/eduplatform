@@ -14,6 +14,7 @@ import ru.rtstudy.educplatformsecurity.exception.entity.CourseNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.entity.GradeNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.entity.LessonNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.student.EnterOnCourseException;
+import ru.rtstudy.educplatformsecurity.exception.student.NotUserGradeException;
 import ru.rtstudy.educplatformsecurity.exception.student.ResolveAllTaskException;
 import ru.rtstudy.educplatformsecurity.model.Grade;
 import ru.rtstudy.educplatformsecurity.model.Lesson;
@@ -82,19 +83,30 @@ public class GradeServiceImpl implements GradeService {
         log.info("{} find all answer for course id: {}.", user.getEmail(), courseId);
         return gradeRepository.findAllStudentsAnswerForCourse(courseId, user.getId())
                 .orElseThrow(() -> {
-                    log.error("{} students answer on course id not found: {}",util.findUserFromContext().getEmail(), courseId, new AnswersNotFoundException("Answers not found."));
+                    log.error("{} students answer on course id not found: {}", util.findUserFromContext().getEmail(), courseId, new AnswersNotFoundException("Answers not found."));
                     return new AnswersNotFoundException("Answers not found.");
                 });
     }
 
 
     @Override
-    public ChangeStudentAnswerDto changeAnswer(Long id, ChangeStudentAnswerDto studentsAnswerDto) {
+    public ChangeStudentAnswerDto changeAnswer(Long gradeId, ChangeStudentAnswerDto studentsAnswerDto) {
         User user = util.findUserFromContext();
-        log.info("{} change answer: {} for grade id: {}.", user.getEmail(), studentsAnswerDto.studentAnswer(), id);
-        gradeRepository.changeAnswer(id, studentsAnswerDto.studentAnswer(), user.getId());
-        log.info("Answer: {} was successful changed by student: {} ", studentsAnswerDto.studentAnswer(), user.getEmail());
-        return studentsAnswerDto;
+        log.info("{} change answer: {} for grade id: {}.", user.getEmail(), studentsAnswerDto.studentAnswer(), gradeId);
+        Grade gradeToChange = gradeRepository.getReferenceById(gradeId);
+        if (gradeToChange.getStudent().getId().equals(user.getId())) {
+            gradeRepository.changeAnswer(gradeId, studentsAnswerDto.studentAnswer(), user.getId());
+            log.info("Answer: {} was successful changed by student: {} ", studentsAnswerDto.studentAnswer(), user.getEmail());
+            return studentsAnswerDto;
+        }
+        log.error("Student {} tried to change not his grade with id {}", user.getEmail(), gradeId, new NotUserGradeException("This user can't change this grade because it's not his answer."));
+        throw new NotUserGradeException("This user can't change this grade because it's not his answer.");
+    }
+
+    @Override
+    public List<AllStudentAnswers> getAllAnswersByStudentForLesson(Long lessonId) {
+        User user = util.findUserFromContext();
+        return gradeRepository.getAnswersByStudentForLesson(user.getId(), lessonId);
     }
 
     @Override
@@ -137,6 +149,7 @@ public class GradeServiceImpl implements GradeService {
                     return new GradeNotFoundException("Grade was not found.");
                 });
     }
+
 
     @Override
     public Optional<List<Grade>> findAllGradesByCourseId(Long courseId) {

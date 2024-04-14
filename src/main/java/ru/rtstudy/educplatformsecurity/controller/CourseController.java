@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseDtoResponse;
-import ru.rtstudy.educplatformsecurity.responsebuilder.CourseResponseBuilder;
 import ru.rtstudy.educplatformsecurity.dto.request.CourseDtoRequest;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseDtoResponse;
 import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
-import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoShortDescription;
+import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoResponse;
+import ru.rtstudy.educplatformsecurity.responsebuilder.CourseResponseBuilder;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class CourseController {
 
     @Operation(summary = "Получить краткое описание всех уроков курса")
     @GetMapping("lessons/{id}")
-    public ResponseEntity<List<LessonDtoShortDescription>> getAllLessonByCourseId(@PathVariable(name = "id")
+    public ResponseEntity<List<LessonDtoResponse>> getAllLessonByCourseId(@PathVariable(name = "id")
                                                                                   @Parameter(name = "id", description = "Идентификатор курса") Long courseId) {
         return responseBuilder.getAllLessonByCourseId(courseId);
     }

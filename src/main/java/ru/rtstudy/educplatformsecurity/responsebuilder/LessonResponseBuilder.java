@@ -28,13 +28,13 @@ public class LessonResponseBuilder {
         Lesson lesson = lessonService.createLesson(lessonDtoRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(mapper.fromEntityToResponse(lesson));
+                .body(mapper.toDto(lesson));
     }
 
     public ResponseEntity<LessonDtoResponse> updateLesson(LessonDtoRequest lessonDtoRequest, Long lessonId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(mapper.toLessonDtoResponse(lessonService.updateLesson(lessonDtoRequest, lessonId)));
+                .body(mapper.toDto(lessonService.updateLesson(lessonDtoRequest, lessonId)));
     }
 
     public ResponseEntity<HttpStatus> deleteLesson(Long id) {

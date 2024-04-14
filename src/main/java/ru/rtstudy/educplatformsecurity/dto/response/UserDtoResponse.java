@@ -1,14 +1,10 @@
 package ru.rtstudy.educplatformsecurity.dto.response;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
 import lombok.Builder;
 import ru.rtstudy.educplatformsecurity.model.constant.Role;
 
 @Builder
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Schema(description = "User DTO Response")
 public record UserDtoResponse(@Schema(description = "id пользователя", example = "1")
                               Long id,

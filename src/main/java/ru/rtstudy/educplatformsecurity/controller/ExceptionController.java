@@ -19,10 +19,7 @@ import ru.rtstudy.educplatformsecurity.exception.mentor.GradeWasNotReviewed;
 import ru.rtstudy.educplatformsecurity.exception.mentor.MentorAnswerAlreadyExistsException;
 import ru.rtstudy.educplatformsecurity.exception.mentor.NoCompletedTasksException;
 import ru.rtstudy.educplatformsecurity.exception.mentor.NotEnoughScoreToMentorException;
-import ru.rtstudy.educplatformsecurity.exception.student.AlreadyMentorException;
-import ru.rtstudy.educplatformsecurity.exception.student.EnterOnCourseException;
-import ru.rtstudy.educplatformsecurity.exception.student.ResolveAllTaskException;
-import ru.rtstudy.educplatformsecurity.exception.student.UserNotMentorException;
+import ru.rtstudy.educplatformsecurity.exception.student.*;
 import ru.rtstudy.educplatformsecurity.exception.user.UserAlreadyExistsException;
 import ru.rtstudy.educplatformsecurity.exception.user.UserNotEnterOnAnyCourseException;
 import ru.rtstudy.educplatformsecurity.exception.user.UserNotRegisterException;
@@ -75,7 +72,8 @@ public class ExceptionController {
             NotEnoughScoreToMentorException.class,
             ResolveAllTaskException.class,
             EnterOnCourseException.class,
-            UserNotEnterOnAnyCourseException.class
+            UserNotEnterOnAnyCourseException.class,
+            NotUserGradeException.class
     })
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessage> studentsException(RuntimeException ex, WebRequest request) {

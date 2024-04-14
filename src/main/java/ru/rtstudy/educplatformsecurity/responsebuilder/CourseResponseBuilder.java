@@ -8,7 +8,7 @@ import ru.rtstudy.educplatformsecurity.dto.mapper.impl.CourseMapper;
 import ru.rtstudy.educplatformsecurity.dto.request.CourseDtoRequest;
 import ru.rtstudy.educplatformsecurity.dto.response.CourseDtoResponse;
 import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
-import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoShortDescription;
+import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoResponse;
 import ru.rtstudy.educplatformsecurity.model.Course;
 import ru.rtstudy.educplatformsecurity.service.CourseService;
 
@@ -35,7 +35,7 @@ public class CourseResponseBuilder {
                 .body(mapper.toCourseDtoResponse(courseService.updateCourse(course, id)));
     }
 
-    public ResponseEntity<List<LessonDtoShortDescription>> getAllLessonByCourseId(Long courseId) {
+    public ResponseEntity<List<LessonDtoResponse>> getAllLessonByCourseId(Long courseId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(courseService.getAllLessonByCourseId(courseId));

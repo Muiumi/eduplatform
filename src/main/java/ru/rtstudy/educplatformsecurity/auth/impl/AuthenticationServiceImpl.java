@@ -73,7 +73,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return SuccessfulSignInDto.builder()
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
-                .surname(user.getLastName())
+                .lastName(user.getLastName())
                 .role(user.getRole())
                 .accessToken(jwt)
                 .accessExpiration(jwtService.extractExpiration(jwt))

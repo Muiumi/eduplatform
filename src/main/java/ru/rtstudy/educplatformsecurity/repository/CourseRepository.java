@@ -1,13 +1,11 @@
 package ru.rtstudy.educplatformsecurity.repository;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
-import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoShortDescription;
+import ru.rtstudy.educplatformsecurity.dto.response.LessonDtoResponse;
 import ru.rtstudy.educplatformsecurity.model.Course;
 
 import java.util.List;
@@ -37,10 +35,10 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Optional<Course> findByTitle(String title);
 
     @Query("""
-            select new LessonDtoShortDescription(l.id, l.title, l.description)
+            select new LessonDtoResponse(l.id, l.title, l.fileName,  l.description, l.taskId.id)
             from Lesson l
             where l.course.id = :courseId
             order by l.id asc
             """)
-    Optional<List<LessonDtoShortDescription>> getAllLessonByCourseId(Long courseId);
+    Optional<List<LessonDtoResponse>> getAllLessonByCourseId(Long courseId);
 }

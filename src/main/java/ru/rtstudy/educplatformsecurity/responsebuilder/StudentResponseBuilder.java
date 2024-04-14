@@ -52,10 +52,16 @@ public class StudentResponseBuilder {
                .body(gradeService.findAllStudentsAnswerForCourse(courseId));
     }
 
-    public ResponseEntity<ChangeStudentAnswerDto> changeAnswer(Long id, ChangeStudentAnswerDto studentsAnswerDto) {
+    public ResponseEntity<List<AllStudentAnswers>> findAllStudentAnswersForLesson(Long lessonId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(gradeService.changeAnswer(id, studentsAnswerDto));
+                .body(gradeService.getAllAnswersByStudentForLesson(lessonId));
+    }
+
+    public ResponseEntity<ChangeStudentAnswerDto> changeAnswer(Long gradeId, ChangeStudentAnswerDto studentsAnswerDto) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(gradeService.changeAnswer(gradeId, studentsAnswerDto));
     }
 
     public ResponseEntity<HttpStatus> upgradeToMentor(Long courseId) {
@@ -64,4 +70,5 @@ public class StudentResponseBuilder {
                 .status(HttpStatus.CREATED)
                 .body(HttpStatus.CREATED);
     }
+
 }

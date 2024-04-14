@@ -8,23 +8,20 @@ import ru.rtstudy.educplatformsecurity.model.Lesson;
 @Mapper(componentModel = "spring")
 public interface LessonMapper extends Mappable<Lesson, LessonDtoResponse> {
 
-    default LessonDtoResponse fromEntityToResponse(Lesson lesson) {
+    default LessonDtoResponse toDto(Lesson lesson) {
         return LessonDtoResponse.builder()
                 .id(lesson.getId())
-                .courseId(lesson.getCourse().getId())
-                .referenceOnFile(lesson.getFileName())
                 .title(lesson.getTitle())
+                .referenceOnFile(lesson.getFileName())
                 .description(lesson.getDescription())
+                .taskId(lesson.getTaskId().getId())
                 .build();
     }
 
-    default LessonDtoResponse toLessonDtoResponse(Lesson lesson) {
-        return LessonDtoResponse.builder()
-                .id(lesson.getId())
-                .courseId(lesson.getCourse().getId())
-                .referenceOnFile(lesson.getFileName())
-                .title(lesson.getTitle())
-                .description(lesson.getDescription())
+    default Lesson toEntity(LessonDtoResponse lessonDtoResponse) {
+        return Lesson.builder()
+                .title(lessonDtoResponse.title())
+                .description(lessonDtoResponse.description())
                 .build();
     }
 }

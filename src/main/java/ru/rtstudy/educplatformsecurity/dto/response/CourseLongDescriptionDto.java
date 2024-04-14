@@ -1,7 +1,5 @@
 package ru.rtstudy.educplatformsecurity.dto.response;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +12,6 @@ import ru.rtstudy.educplatformsecurity.model.constant.DifficultLevel;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Course With Full Description DTO")
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CourseLongDescriptionDto {
 
     @Schema(description = "Идентификатор курса", example = "1")

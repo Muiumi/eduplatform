@@ -19,13 +19,15 @@ public interface GradeService {
 
     List<AllStudentAnswers> findAllStudentsAnswerForCourse(Long id);
 
-    ChangeStudentAnswerDto changeAnswer(Long id, ChangeStudentAnswerDto studentsAnswerDto);
+    ChangeStudentAnswerDto changeAnswer(Long gradeId, ChangeStudentAnswerDto studentsAnswerDto);
 
     void finishCourse(Long id);
 
     List<Long> getAllLessonsId(Long courseId);
 
     List<Grade> getAllGradesByLesson(List<Long> lessonIds, Long userId);
+
+    List<AllStudentAnswers> getAllAnswersByStudentForLesson(Long lessonId);
 
     Optional<List<Grade>> findAllGradesByCourseId(Long courseId);
 

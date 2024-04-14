@@ -1,15 +1,11 @@
 package ru.rtstudy.educplatformsecurity.dto.response;
 
-
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 
 @Builder
 @Schema(description = "Request to Create/Update Course DTO")
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record CourseDtoResponse(
 
         @Schema(description = "Id курса", example = "1")

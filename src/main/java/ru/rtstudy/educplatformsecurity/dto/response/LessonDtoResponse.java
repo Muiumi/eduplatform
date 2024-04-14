@@ -1,11 +1,8 @@
 package ru.rtstudy.educplatformsecurity.dto.response;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Builder
 @Schema(description = "Lesson With Full Description DTO")
 public record LessonDtoResponse(
@@ -18,7 +15,7 @@ public record LessonDtoResponse(
         String referenceOnFile,
         @Schema(description = "Описание урока", example = "На этом уроке вы узнаете что такое буферный кэш, его особенности и как его можно настраивать.")
         String description,
-        @Schema(description = "Id курса, к которому относится данный урок", example = "PostgreSQL для профи")
-        Long courseId
+        @Schema(description = "Id задания, который относится к данному уроку", example = "1")
+        Long taskId
 ) {
 }

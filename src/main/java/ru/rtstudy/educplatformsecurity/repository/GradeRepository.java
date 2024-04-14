@@ -100,10 +100,10 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
     @Query("""
             update Grade g
             set g.studentAnswer = :studentAnswer
-            where g.id = :id
+            where g.id = :gradeId
             and g.student.id = :studentId
             """)
-    void changeAnswer(Long id, String studentAnswer, Long studentId);
+    void changeAnswer(Long gradeId, String studentAnswer, Long studentId);
 
     @Query("""
             select l.id
@@ -138,5 +138,17 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
             where g.mentor.id =:userId
                    """)
     int countAllAnswersByMentorUserId(Long userId);
+
+    @Query("""
+            select new AllStudentAnswers(g.id, t.description, g.grade, g.rework, g.studentAnswer, g.mentorAnswer)
+            from Grade g
+            join Lesson l
+                on l.id = g.lesson.id
+            join Task t
+                on l.taskId.id = t.id
+            where l.id =:lessonId
+                and g.student.id =:studentId
+            """)
+    List<AllStudentAnswers> getAnswersByStudentForLesson(Long studentId, Long lessonId);
 
 }
