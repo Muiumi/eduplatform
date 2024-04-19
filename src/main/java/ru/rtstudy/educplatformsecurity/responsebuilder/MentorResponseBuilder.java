@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.rtstudy.educplatformsecurity.dto.request.MentorAnswerDtoRequest;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.dto.response.GradeDtoResponse;
 import ru.rtstudy.educplatformsecurity.dto.response.GradeStudentDtoResponse;
 import ru.rtstudy.educplatformsecurity.service.MentorService;
@@ -52,5 +53,11 @@ public class MentorResponseBuilder {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<List<CourseLongDescriptionDto>> getAllMentorCourses() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(mentorService.getMentorCourses());
     }
 }

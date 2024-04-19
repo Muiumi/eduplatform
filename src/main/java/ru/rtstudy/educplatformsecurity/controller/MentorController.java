@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.responsebuilder.MentorResponseBuilder;
 import ru.rtstudy.educplatformsecurity.dto.request.MentorAnswerDtoRequest;
 import ru.rtstudy.educplatformsecurity.dto.response.GradeDtoResponse;
@@ -24,6 +25,12 @@ import java.util.List;
 public class MentorController {
 
     private final MentorResponseBuilder responseBuilder;
+
+    @Operation(summary = "Получить все курсы, где пользвоатель - ментор")
+    @GetMapping("/courses")
+    public ResponseEntity<List<CourseLongDescriptionDto>> getAllMentorCourses() {
+        return responseBuilder.getAllMentorCourses();
+    }
 
     @Operation(summary = "Получить ответы всех студентов, за все курсы, которые ты можешь проверять")
     @GetMapping

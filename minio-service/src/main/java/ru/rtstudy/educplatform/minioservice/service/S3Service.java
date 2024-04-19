@@ -5,8 +5,6 @@ import org.springframework.http.codec.multipart.FilePart;
 import reactor.core.publisher.Mono;
 import ru.rtstudy.educplatform.minioservice.dto.UploadResponse;
 
-import java.util.List;
-
 public interface S3Service {
 
     Mono<UploadResponse> uploadFile(Mono<FilePart> filePart);
@@ -16,6 +14,4 @@ public interface S3Service {
     Mono<UploadResponse> putObject(FilePart file);
 
     boolean deleteFile(String fileName);
-
-    List<String> getAllObjects();
 }

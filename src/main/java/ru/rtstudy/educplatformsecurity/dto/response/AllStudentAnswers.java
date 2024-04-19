@@ -15,5 +15,5 @@ public record AllStudentAnswers(
         @Schema(description = "Ответ студента на задание", example = "Существует два вида буферного кэша")
         String studentAnswer,
         @Schema(description = "Комментарий ментора к ответу студента", example = "Нет, дурачьё, подумай еще...")
-        String mentorsAnswer) {
+        String mentorAnswer) {
 }

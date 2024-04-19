@@ -12,7 +12,6 @@ import ru.rtstudy.educplatformsecurity.dto.request.JwtRefreshToken;
 import ru.rtstudy.educplatformsecurity.dto.request.SignInRequest;
 import ru.rtstudy.educplatformsecurity.dto.request.SignUpRequest;
 import ru.rtstudy.educplatformsecurity.dto.response.JwtTokenDto;
-import ru.rtstudy.educplatformsecurity.dto.response.SuccessfulSignInDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 import ru.rtstudy.educplatformsecurity.responsebuilder.AuthenticationResponseBuilder;
 
@@ -33,7 +32,7 @@ public class AuthenticationController {
 
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("signIn")
-    public ResponseEntity<SuccessfulSignInDto> signIn(@Valid @RequestBody SignInRequest request) {
+    public ResponseEntity<JwtTokenDto> signIn(@Valid @RequestBody SignInRequest request) {
         return responseBuilder.signIn(request);
     }
 

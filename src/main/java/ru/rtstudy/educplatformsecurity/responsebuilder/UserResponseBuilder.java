@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.rtstudy.educplatformsecurity.dto.mapper.impl.UserMapper;
 import ru.rtstudy.educplatformsecurity.dto.request.UserUpdateDto;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 import ru.rtstudy.educplatformsecurity.service.UserService;
 
@@ -31,7 +31,7 @@ public class UserResponseBuilder {
                 .body(userService.updateUser(userUpdateDto));
     }
 
-    public ResponseEntity<List<CourseShortDescriptionDto>> getAllStartedCourse() {
+    public ResponseEntity<List<CourseLongDescriptionDto>> getAllStartedCourse() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.getAllStartedCourse());

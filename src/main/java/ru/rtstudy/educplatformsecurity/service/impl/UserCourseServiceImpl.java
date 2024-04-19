@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
-import ru.rtstudy.educplatformsecurity.exception.student.AlreadyMentorException;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.exception.entity.CourseNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.mentor.NotEnoughScoreToMentorException;
+import ru.rtstudy.educplatformsecurity.exception.student.AlreadyMentorException;
 import ru.rtstudy.educplatformsecurity.exception.user.UserNotEnterOnAnyCourseException;
 import ru.rtstudy.educplatformsecurity.model.Course;
 import ru.rtstudy.educplatformsecurity.model.Grade;
@@ -92,7 +92,7 @@ public class UserCourseServiceImpl implements UserCourseService {
     }
 
     @Override
-    public List<CourseShortDescriptionDto> getAllStartedCourse(Long userId) {
+    public List<CourseLongDescriptionDto> getAllStartedCourse(Long userId) {
         return userCourseRepository
                 .getAllStartedCourse(userId)
                 .orElseThrow(() -> new UserNotEnterOnAnyCourseException("You are not enter on any course."));

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: local
 ---
 spring:
   application:
@@ -48,7 +48,7 @@ spring:
   datasource:
     username: java
     password: java
-    url: jdbc:postgresql://localhost:5435/educplatform
+    url: jdbc:postgresql://database:5432/educplatform
     driver-class-name: org.postgresql.Driver
 
   jpa:

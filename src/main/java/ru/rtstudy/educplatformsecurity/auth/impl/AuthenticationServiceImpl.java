@@ -13,7 +13,6 @@ import ru.rtstudy.educplatformsecurity.dto.request.JwtRefreshToken;
 import ru.rtstudy.educplatformsecurity.dto.request.SignInRequest;
 import ru.rtstudy.educplatformsecurity.dto.request.SignUpRequest;
 import ru.rtstudy.educplatformsecurity.dto.response.JwtTokenDto;
-import ru.rtstudy.educplatformsecurity.dto.response.SuccessfulSignInDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 import ru.rtstudy.educplatformsecurity.exception.entity.UserNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.user.UserAlreadyExistsException;
@@ -58,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public SuccessfulSignInDto signIn(SignInRequest request) {
+    public JwtTokenDto signIn(SignInRequest request) {
         log.info("{} trying to sign in", request.getEmail());
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()))
@@ -70,7 +69,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 });
         String jwt = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return SuccessfulSignInDto.builder()
+        return JwtTokenDto.builder()
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -103,7 +102,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtTokenDto refreshToken(JwtRefreshToken jwtRefreshToken) {
-        log.info("WE ARE HERE!");
         String userEmail = jwtService.extractUser(jwtRefreshToken.refreshToken());
         if (userEmail != null) {
             User user = userRepository.findUserByEmail(userEmail)
@@ -111,7 +109,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             if (jwtService.isTokenValid(jwtRefreshToken.refreshToken(), user)) {
                 String accessToken = jwtService.generateToken(user);
                return JwtTokenDto.builder()
-                       .token(accessToken)
+                       .email(user.getEmail())
+                       .firstName(user.getFirstName())
+                       .lastName(user.getLastName())
+                       .accessToken(accessToken)
+                       .accessExpiration(jwtService.extractExpiration(accessToken))
+                       .role(user.getRole())
                        .build();
             }
         } else {

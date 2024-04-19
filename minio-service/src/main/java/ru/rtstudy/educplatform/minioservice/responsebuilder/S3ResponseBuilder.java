@@ -131,10 +131,4 @@ public class S3ResponseBuilder {
             throw new IllegalStateException("Not correct input.");
         }
     }
-
-    public ResponseEntity<List<String>> getAllObjects() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(s3Service.getAllObjects());
-    }
 }

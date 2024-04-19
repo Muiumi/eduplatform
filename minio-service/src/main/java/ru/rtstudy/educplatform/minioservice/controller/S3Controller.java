@@ -26,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "MinIO Controller", description = "MinIO Controller API")
 @RequestMapping("/object")
+@CrossOrigin
 public class S3Controller {
 
     private final S3ResponseBuilder responseBuilder;
@@ -59,11 +60,6 @@ public class S3Controller {
                                                             @Parameter(description = "UUID файла")
                                                             @PathVariable(value = "file_name") String fileName) {
         return responseBuilder.download(token, fileName);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<String>> getAllObjects() {
-        return responseBuilder.getAllObjects();
     }
 
     @Operation(summary = "Удаление из хранилища MinIO по его UUID")

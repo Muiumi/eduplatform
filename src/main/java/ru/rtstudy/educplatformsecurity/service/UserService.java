@@ -2,7 +2,7 @@ package ru.rtstudy.educplatformsecurity.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.rtstudy.educplatformsecurity.dto.request.UserUpdateDto;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.model.User;
 import ru.rtstudy.educplatformsecurity.model.constant.Role;
 
@@ -18,5 +18,5 @@ public interface UserService {
 
     UserUpdateDto updateUser(UserUpdateDto userUpdateDto);
 
-    List<CourseShortDescriptionDto> getAllStartedCourse();
+    List<CourseLongDescriptionDto> getAllStartedCourse();
 }

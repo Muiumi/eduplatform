@@ -1,6 +1,7 @@
 package ru.rtstudy.educplatformsecurity.service;
 
 import ru.rtstudy.educplatformsecurity.dto.request.MentorAnswerDtoRequest;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.dto.response.GradeDtoResponse;
 import ru.rtstudy.educplatformsecurity.dto.response.GradeStudentDtoResponse;
 import ru.rtstudy.educplatformsecurity.model.Course;
@@ -22,4 +23,6 @@ public interface MentorService {
     MentorAnswerDtoRequest updateMentorAnswer(Long id, MentorAnswerDtoRequest mentorAnswerDtoRequest);
 
     void upgradeToAuthor();
+
+    List<CourseLongDescriptionDto> getMentorCourses();
 }

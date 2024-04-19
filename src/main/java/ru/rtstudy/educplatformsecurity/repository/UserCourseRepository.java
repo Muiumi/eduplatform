@@ -3,7 +3,7 @@ package ru.rtstudy.educplatformsecurity.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.model.User;
 import ru.rtstudy.educplatformsecurity.model.UserCourse;
 
@@ -60,9 +60,16 @@ public interface UserCourseRepository extends JpaRepository<UserCourse, Long> {
     boolean alreadyCourseMentor(Long userId, Long courseId);
 
     @Query("""
-            select new CourseShortDescriptionDto(us.course.id, us.course.title, us.course.description)
+            select new CourseLongDescriptionDto(us.course.id, us.course.title, us.course.description, us.course.category.title, us.course.duration, us.course.difficult.difficultLevel)
             from UserCourse us
             where us.user.id = :userId
             """)
-    Optional<List<CourseShortDescriptionDto>> getAllStartedCourse(Long userId);
+    Optional<List<CourseLongDescriptionDto>> getAllStartedCourse(Long userId);
+
+    @Query("""
+            select new CourseLongDescriptionDto(us.course.id, us.course.title, us.course.description, us.course.category.title, us.course.duration, us.course.difficult.difficultLevel)
+            from UserCourse us
+            where us.user.id = :userId and us.mentorCourse = true
+            """)
+    List<CourseLongDescriptionDto> getMentorCourses(Long userId);
 }

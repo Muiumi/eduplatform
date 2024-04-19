@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rtstudy.educplatformsecurity.dto.request.UserUpdateDto;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.exception.entity.UserNotFoundException;
 import ru.rtstudy.educplatformsecurity.exception.student.UserNotMentorException;
 import ru.rtstudy.educplatformsecurity.exception.user.UserNotEnterOnAnyCourseException;
@@ -70,14 +70,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<CourseShortDescriptionDto> getAllStartedCourse() {
+    public List<CourseLongDescriptionDto> getAllStartedCourse() {
         User user = util.findUserFromContext();
         log.info("{} change trying to get his started courses.", user.getEmail());
-        List<CourseShortDescriptionDto> allStartedCourse = userCourseService.getAllStartedCourse(user.getId());
+        List<CourseLongDescriptionDto> allStartedCourse = userCourseService.getAllStartedCourse(user.getId());
         if (allStartedCourse.isEmpty()) {
             log.error("{} not enter on any course", user.getEmail(), new UserNotEnterOnAnyCourseException("User not enter on any course."));
             throw new UserNotEnterOnAnyCourseException("You are not enter on any course.");
+        } else {
+            return allStartedCourse;
         }
-        return allStartedCourse;
     }
 }

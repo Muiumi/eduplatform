@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rtstudy.educplatformsecurity.dto.request.MentorAnswerDtoRequest;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.dto.response.GradeDtoResponse;
 import ru.rtstudy.educplatformsecurity.dto.response.GradeStudentDtoResponse;
 import ru.rtstudy.educplatformsecurity.exception.entity.GradeNotFoundException;
@@ -52,6 +53,12 @@ public class MentorServiceImpl implements MentorService {
                 .stream()
                 .map(UserCourse::getCourse)
                 .toList();
+    }
+    @Override
+    public List<CourseLongDescriptionDto> getMentorCourses() {
+        User mentor = util.findUserFromContext();
+        log.info("{} get all courses for mentor", mentor.getEmail());
+        return userCourseRepository.getMentorCourses(mentor.getId());
     }
 
     @Override

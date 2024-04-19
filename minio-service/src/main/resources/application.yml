@@ -1,14 +1,20 @@
 spring:
   profiles:
-    active: dev
+    active: local
 ---
 spring:
   config:
     activate:
       on-profile: local
 
+  minio:
+    url: http://minio:9000
+    access-key: java
+    secret-key: password
+    bucket: educplatform
+
 educplatform:
-  uri: http://localhost:8081/api/v1/auth/
+  uri: http://education-platform:8081/api/v1/auth/
 
 server:
   port: 8082
@@ -18,8 +24,6 @@ cloud:
     credentials:
       access-key: YCAJEHbENc21rOfoFaIovtS5M
       secret-key: YCNbwM49Sje3glE3NOjynywwRYF-aVEEzDTTpy7l
-amazonS3:
-  bucket-name: rtischool-store
 ---
 spring:
   config:

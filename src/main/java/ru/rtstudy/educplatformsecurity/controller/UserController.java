@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.rtstudy.educplatformsecurity.dto.request.UserUpdateDto;
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 import ru.rtstudy.educplatformsecurity.responsebuilder.UserResponseBuilder;
 
@@ -35,7 +35,7 @@ public class UserController {
 
     @Operation(summary = "Получить список курсов на которые поступил пользователь")
     @GetMapping("courses")
-    public ResponseEntity<List<CourseShortDescriptionDto>> getAllStartedCourse() {
+    public ResponseEntity<List<CourseLongDescriptionDto>> getAllStartedCourse() {
         return responseBuilder.getAllStartedCourse();
     }
 }

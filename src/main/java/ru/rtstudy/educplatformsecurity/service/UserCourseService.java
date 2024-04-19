@@ -1,6 +1,6 @@
 package ru.rtstudy.educplatformsecurity.service;
 
-import ru.rtstudy.educplatformsecurity.dto.response.CourseShortDescriptionDto;
+import ru.rtstudy.educplatformsecurity.dto.response.CourseLongDescriptionDto;
 import ru.rtstudy.educplatformsecurity.model.Course;
 import ru.rtstudy.educplatformsecurity.model.User;
 
@@ -16,7 +16,7 @@ public interface UserCourseService {
 
     void finishCourse(Long userId, Long courseId);
 
-    List<CourseShortDescriptionDto> getAllStartedCourse(Long userId);
+    List<CourseLongDescriptionDto> getAllStartedCourse(Long userId);
 
     void makeCourseMentor(User user, Course course);
 }

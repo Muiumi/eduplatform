@@ -9,7 +9,6 @@ import ru.rtstudy.educplatformsecurity.dto.request.JwtRefreshToken;
 import ru.rtstudy.educplatformsecurity.dto.request.SignInRequest;
 import ru.rtstudy.educplatformsecurity.dto.request.SignUpRequest;
 import ru.rtstudy.educplatformsecurity.dto.response.JwtTokenDto;
-import ru.rtstudy.educplatformsecurity.dto.response.SuccessfulSignInDto;
 import ru.rtstudy.educplatformsecurity.dto.response.UserDtoResponse;
 import ru.rtstudy.educplatformsecurity.model.User;
 import ru.rtstudy.educplatformsecurity.service.LessonService;
@@ -30,8 +29,8 @@ public class AuthenticationResponseBuilder {
                 .body(authenticationService.signUp(signUpRequest));
     }
 
-    public ResponseEntity<SuccessfulSignInDto> signIn(SignInRequest signInRequest) {
-        SuccessfulSignInDto tokenDto = authenticationService.signIn(signInRequest);
+    public ResponseEntity<JwtTokenDto> signIn(SignInRequest signInRequest) {
+        JwtTokenDto tokenDto = authenticationService.signIn(signInRequest);
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(tokenDto);
